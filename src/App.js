@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Statistics from './components/Statistics/Statistics';
+import FeedbackOptions from './components/FeedbackOptions/FeedbackOptions';
+
+class App extends Component {
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
+
+  getStateKeys() {
+    return Object.keys(this.state);
+  }
+
+  onLeaveFeedback(name) {
+    this.setState({ [name]: this.state[name] + 1 });
+  }
+
+  render() {
+    const stateKeys = this.getStateKeys();
+
+    return (
+      <div>
+        <FeedbackOptions
+          state={this.state}
+          stateKeys={stateKeys}
+          onLeaveFeedback={this.onLeaveFeedback.bind(this)}
+        />
+
+        <Statistics state={this.state} stateKeys={stateKeys} />
+      </div>
+    );
+  }
 }
 
 export default App;
