@@ -4,20 +4,22 @@ import s from './FeedbackOptions.module.css';
 
 class FeedbackOptions extends Component {
   render() {
+    const btnsArray = Object.keys(this.props.options);
+
     return (
       <div>
         <h1>Please leave feedback</h1>
         <ul className={s.buttonList}>
-          {this.props.stateKeys.map(key => (
+          {btnsArray.map(name => (
             <li key={shortid.generate()}>
               <button
                 type="button"
                 className={s.statisticsBtn}
                 onClick={() => {
-                  this.props.onLeaveFeedback(key);
+                  this.props.onLeaveFeedback(name);
                 }}
               >
-                {key.slice(0, 1).toUpperCase() + key.slice(1)}
+                {name.slice(0, 1).toUpperCase() + name.slice(1)}
               </button>
             </li>
           ))}

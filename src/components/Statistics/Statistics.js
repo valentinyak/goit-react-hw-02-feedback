@@ -2,33 +2,24 @@ import React, { Component } from 'react';
 import shortid from 'shortid';
 
 class Statistics extends Component {
-  countTotalFeedback() {
-    return Object.values(this.props.state).reduce((acc, value) => {
-      return acc + value;
-    });
-  }
-
-  countPositiveFeedbackPercentage() {
-    return (this.props.state.good / this.countTotalFeedback()) * 100;
-  }
-
   render() {
+    const btnsArray = Object.keys(this.props).slice(0, 3);
+
     return (
       <div>
         <h1>Statistics</h1>
         <ul>
-          {this.props.stateKeys.map(key => (
+          {btnsArray.map(name => (
             <li key={shortid.generate()}>
-              {key.slice(0, 1).toUpperCase() +
-                key.slice(1) +
+              {name.slice(0, 1).toUpperCase() +
+                name.slice(1) +
                 ': ' +
-                this.props.state[key]}
+                this.props[name]}
             </li>
           ))}
-          <li>Total: {this.countTotalFeedback()}</li>
+          <li>Total: {this.props.total}</li>
           <li>
-            Positive feedback:{' '}
-            {Math.round(this.countPositiveFeedbackPercentage())}%
+            Positive feedback: {Math.round(this.props.positivePercentage)}%
           </li>
         </ul>
       </div>
