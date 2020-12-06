@@ -34,10 +34,12 @@ class App extends Component {
   }
 
   render() {
+    const { good, neutral, bad } = this.state;
+
     return (
       <div>
         <FeedbackOptions
-          options={this.state}
+          options={Object.keys(this.state)}
           onLeaveFeedback={this.onLeaveFeedback.bind(this)}
         />
 
@@ -47,9 +49,9 @@ class App extends Component {
           <Notification message="No feedback given" />
         ) : (
           <Statistics
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
+            good={good}
+            neutral={neutral}
+            bad={bad}
             total={this.countTotalFeedback()}
             positivePercentage={this.countPositiveFeedbackPercentage()}
           />
